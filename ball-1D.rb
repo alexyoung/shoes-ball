@@ -14,10 +14,6 @@ class Ball
     @circle = @app.oval :top => @x, :left => @y, :radius => @radius
   end
 
-  def update_position
-    move
-  end
-
   # Momentum = mass * velocity
   def move
     @x += @velocity[0] * @mass
@@ -82,7 +78,7 @@ Shoes.app :width => 200, :height => 200 do
     end
 
     balls.each do |ball|
-      ball.update_position
+      ball.move
     end
   end
 end
