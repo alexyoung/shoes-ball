@@ -7,7 +7,7 @@ class Ball
     @x = options[:position][0]
     @y = options[:position][1]
     @radius = 10
-    @eta = 0.8
+    @eta = 0.85
 
     @app = app
     @app.fill options[:fill]
@@ -52,10 +52,10 @@ class Ball
     # If the length of the hypotenuse between two balls is
     # equal to or less than their combined widths then
     # they've collided
-    origin_x = (ball.x - @x).abs
-    origin_y = (ball.y - @y).abs
+    origin_x = (ball.x - @x - @velocity[0]).abs
+    origin_y = (ball.y - @y - @velocity[1]).abs
     hypotenuse = Math.sqrt((origin_x ** 2).to_f + (origin_y ** 2).to_f)
-    hypotenuse <= ball.radius + @radius + 1
+    hypotenuse <= ball.radius + @radius
   end
 end
 
@@ -68,12 +68,12 @@ Shoes.app :width => 200, :height => 200 do
   balls << Ball.new(self, :mass => 0.5,
                           :fill => '#ff0000',
                           :radius => radius,
-                          :velocity => [1.0, 0.0],
+                          :velocity => [4, 0.0],
                           :position => [center_x - 50, center_y])
   balls << Ball.new(self, :mass => 0.9,
                           :fill => '#0000ff',
                           :radius => radius,
-                          :velocity => [-1.0, 0.0],
+                          :velocity => [-2, 0.0],
                           :position => [center_x + 50, center_y])
 
   @anim = animate 30 do
